@@ -7,7 +7,7 @@ First install all necessary dependencies via `npm install or yarn install`
 
 Next, run `node connect.js` in the terminal to create db
 
-Finally run either `npm run dev` or `yarn dev` and ppen [http://localhost:3000](http://localhost:3000) with your browser to visit the Web 3 Library.
+Finally run either `npm run dev` or `yarn dev` and open [http://localhost:3000](http://localhost:3000) within your browser to visit the Web 3 Library.
 
 ## Features
 
