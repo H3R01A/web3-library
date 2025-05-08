@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import sqlite3 from "sqlite3";
 import { open, Database } from "sqlite";
 
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
 export async function POST(req: NextRequest) {
     const body = await req.json()
     const { title, description, postedBy} = body;
     const response: {id?: number} = {};
+
+    let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
     try {
         // Check if the database instance has been initialized

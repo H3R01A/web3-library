@@ -16,7 +16,6 @@ export default function Home() {
       const { ethereum } = window;
 
       const accounts = await ethereum.request({ method: 'eth_accounts' })
-      console.log("accounts: ", accounts);
 
       if (accounts.length > 0) {
         const account = accounts[0];
@@ -56,19 +55,21 @@ export default function Home() {
 
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="flex flex-col items-center">
 
       <main>
-        <h1>Welcome to your local Web 3 Decentralized Library. Connect your wallet to continue</h1>
+        <h1 className="text-large">Welcome to your local Web 3 Decentralized Library!</h1>
+
         {currentAccount ? (
           <div>
-            Browse our catalog or add a book
-            <Link href="/catalog">View Books</Link>
-            <Link href="/add-book">Add a Book</Link>
+            <Link className="text-blue-300 underline underline-offset-1" href="/catalog">Browse our catalog</Link>
+            <br></br>
+            <Link className="text-blue-300 underline underline-offset-1" href="/add-book">Add a Book</Link>
           </div>
         ) : (
           <div>
-            <button onClick={connectWallet}> Connect your wallet </button>
+            <h2 className="text-md">Connect your wallet to continue</h2>
+            <button className="mt-8 bg-sky-500 p-5 hover:bg-sky-800 rounded-md" onClick={connectWallet}> Connect your wallet </button>
           </div>
         )}
       </main>

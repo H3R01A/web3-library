@@ -38,7 +38,7 @@ export default function AddBook() {
             {newBookID &&
                 <div>
                     <h2 className="text-md">Book Successfully Added. Check out it in the catalog</h2>
-                    <Link href={`/catalog/${newBookID}`}>Check out book</Link>
+                    <Link className="text-blue-300 underline underline-offset-1" href={`/catalog/${newBookID}`}>Check out book</Link>
                 </div>}
         </div >
     );
