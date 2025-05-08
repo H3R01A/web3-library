@@ -6,11 +6,13 @@ import Link from "next/link";
 export default function Home() {
 
   const [currentAccount, setCurrentAccount] = useState("");
-  
+
 
   // Wallet connection logic
   const isWalletConnected = async () => {
     try {
+
+      //@ts-expect-error - Property 'ethereum' does not exist on type 'Window & typeof globalThis'
       const { ethereum } = window;
 
       const accounts = await ethereum.request({ method: 'eth_accounts' })
@@ -29,6 +31,7 @@ export default function Home() {
 
   const connectWallet = async () => {
     try {
+      //@ts-expect-error - Property 'ethereum' does not exist on type 'Window & typeof globalThis'
       const { ethereum } = window;
 
       if (!ethereum) {
@@ -48,7 +51,7 @@ export default function Home() {
   useEffect(() => {
 
     isWalletConnected();
-  
+
   }, []);
 
 
@@ -56,15 +59,17 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
 
       <main>
-
+        <h1>Welcome to your local Web 3 Decentralized Library. Connect your wallet to continue</h1>
         {currentAccount ? (
           <div>
-            Welcome to Web3 Library
+            Browse our catalog or add a book
             <Link href="/catalog">View Books</Link>
             <Link href="/add-book">Add a Book</Link>
           </div>
         ) : (
-          <button onClick={connectWallet}> Connect your wallet </button>
+          <div>
+            <button onClick={connectWallet}> Connect your wallet </button>
+          </div>
         )}
       </main>
 

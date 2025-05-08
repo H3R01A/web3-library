@@ -6,8 +6,9 @@ let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
 
 export async function POST(req: NextRequest) {
     const body = await req.json()
-    const { title, description, postedBy} = body;
-    const response: {id?: number} = {};
+    const { totalLikes } = body;
+    const bookId = req.url.split('/').pop(); // Get the ID from the URL
+    const response: { success: boolean } = { success: false };
 
     try {
         // Check if the database instance has been initialized
@@ -18,19 +19,16 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        const value = [
-            title,
-            description,
-            postedBy,
-            `${Date.now()}`,
-            0
-        ];
-  
-        const insertSql = `INSERT INTO items(title, description, walletAddress, timestamp, likes) VALUES(?, ?, ?, ?, ?)`;
-  
-        const result = await db.run(insertSql, value);
-        response.id = result.lastID;
-        console.log(`Rows inserted, ID ${result.lastID}`);
+        // Update the likes count for the specific book
+        const updateSql = `UPDATE items SET likes = ? WHERE id = ?`;
+        const result = await db.run(updateSql, [totalLikes, bookId]);
+        
+        if (result) {
+            response.success = true;
+            console.log(`Updated likes for book ID ${bookId} to ${totalLikes}`);
+        } else {
+            console.log(`No book found with ID ${bookId}`);
+        }
 
         // Close the database connection
         await db.close();
